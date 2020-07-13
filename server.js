@@ -17,8 +17,6 @@ require("./controllers/authController")(app);
 require("./controllers/userController")(app);
 require("./controllers/eventController")(app);
 
-app.listen(PORT, function () {
-    console.log(`App listening on port ${PORT}!`);
-});
+app.listen(process.env.PORT || PORT);
 
 module.exports = app;
