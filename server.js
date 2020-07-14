@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const PORT = 3001;
 
 const app = express();
 
@@ -21,6 +20,6 @@ require("./controllers/authController")(app);
 require("./controllers/userController")(app);
 require("./controllers/eventController")(app);
 
-app.listen(process.env.PORT || PORT);
+app.listen(process.env.PORT || 3001);
 
 module.exports = app;
