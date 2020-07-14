@@ -28,7 +28,7 @@ router.post("", async (req, res) => {
     try {
         const event = await Event.create(req.body);
 
-        let pathname = req.header("origin");
+        /* let pathname = req.header("origin");
 
         await mailer.sendMail({
             from: '"Caroster" <carosteroctree2020@gmail.com>',
@@ -41,7 +41,7 @@ router.post("", async (req, res) => {
                 <p>Lien de votre événement : "${pathname}/event/${event._id}"</p>
               `,
         });
-
+ */
         return res.send(event);
     } catch (error) {
         return res.status(400).send({ error: "create event failed" });
