@@ -24,24 +24,24 @@ const eventMiddleware = async (req, res, next) => {
 
 /// New Event /////////////////////////////////////////////////////////////////////////////////////
 
-router.post("/", async (req, res) => {
+router.post("", async (req, res) => {
     try {
         const event = await Event.create(req.body);
 
-        /*   let pathname = req.header('origin');
-    
-         await mailer.sendMail({
-            from: '"Caroster" <carosteroctree2020@gmail.com>', 
-            to: `${event.email}`, 
+        let pathname = req.header("origin");
+
+        await mailer.sendMail({
+            from: '"Caroster" <carosteroctree2020@gmail.com>',
+            to: `${event.email}`,
             subject: `Votre lien Caroster pour votre événement :${event.title} `,
             html: `
                 <p>Bonjour,</p>
                 <p>Voici le lien à partager avec les personnes venant à votre événement :</p>
                 <p>"<strong>${event.title}</strong>"</p>
                 <p>Lien de votre événement : "${pathname}/event/${event._id}"</p>
-              ` 
-          });
- */
+              `,
+        });
+
         return res.send(event);
     } catch (error) {
         return res.status(400).send({ error: "create event failed" });
