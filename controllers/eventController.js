@@ -172,26 +172,40 @@ router.post("/car/:id/passenger", async (req, res) => {
         await car.passengers.push(passenger);
         await car.save();
 
-        const myevent = await Event.findOne(
+        /*  const myevent = await Event.findOne(
             { cars: { $eq: car } },
             { title: "string" },
             { "title.$": 1 }
-        );
+        ); */
 
-        await mailer.sendMail({
-            from: '"Caroster" <carosteroctree2020@gmail.com>',
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+        const msg = {
             to: `${car.email}`,
+            from: "gmascarenhas3001@gmail.com", // Use the email address or domain you verified above
             subject: `Nouveau passager - ${passenger.name} `,
             html: `
                 <p>Bonjour,</p>
-                <p>Vous avez un nouveau passager dans votre voiture "${car.carName}" pour l'événement "${myevent.title}".</p>
+                <p>Vous avez un nouveau passager dans votre voiture "${car.carName}" pour l'événement "Title event".</p>
                 <p>"<strong>${passenger.name}</strong>"</p>
               `,
-        });
+        };
+
+        (async () => {
+            try {
+                await sgMail.send(msg);
+            } catch (error) {
+                console.error(error);
+
+                if (error.response) {
+                    console.error(error.response.body);
+                }
+            }
+        })();
 
         return res.json({ passenger });
     } catch (error) {
-        return res.status(400).send("error: add passenger in car");
+        return res.status(400).send({ error: "add passenger in car" });
     }
 });
 
