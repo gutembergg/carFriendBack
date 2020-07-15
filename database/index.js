@@ -6,8 +6,6 @@ mongoose.connect(MONGO_URL, {
     useUnifiedTopology: true,
 });
 
-//mongodb://heroku_lv6v9mz2:3iit85ibbd3ro7hvtjmlan0v0h@ds351807.mlab.com:51807/heroku_lv6v9mz2
-
 mongodb: mongoose.set("useCreateIndex", true);
 mongoose.set("useFindAndModify", false);
 
