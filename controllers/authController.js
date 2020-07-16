@@ -77,7 +77,7 @@ router.post("/forgot_password", async (req, res) => {
             return res.status(401).send({ error: "User not found" });
         }
 
-        /*   const token = crypto.randomBytes(20).toString("hex");
+        const token = crypto.randomBytes(20).toString("hex");
 
         const now = new Date();
         now.setHours(now.getHours() + 1);
@@ -87,7 +87,7 @@ router.post("/forgot_password", async (req, res) => {
                 passwordResetToken: token,
                 passwordResetExpires: now,
             },
-        }); */
+        });
 
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
