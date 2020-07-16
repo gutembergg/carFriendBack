@@ -26,7 +26,7 @@ const eventMiddleware = async (req, res, next) => {
 
 /// New Event /////////////////////////////////////////////////////////////////////////////////////
 
-router.post("", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         const event = await Event.create(req.body);
         let pathname = req.header("origin");
