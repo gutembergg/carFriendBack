@@ -88,10 +88,10 @@ router.post("/forgot_password", async (req, res) => {
             },
         }); */
 
-        /*  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
         const msg = {
-            to: `${user.email}`,
+            to: `${email}`,
             from: "gmascarenhas3001@gmail.com",
             subject: `Reset Password ${user.name} `,
             html: `
@@ -112,7 +112,7 @@ router.post("/forgot_password", async (req, res) => {
                     console.error(error.response.body);
                 }
             }
-        })(); */
+        })();
 
         return res.send("ok");
     } catch (err) {
