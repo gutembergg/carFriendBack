@@ -88,7 +88,7 @@ router.post("/forgot_password", async (req, res) => {
             },
         }); */
 
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        /*  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
         const msg = {
             to: `${user.email}`,
@@ -112,12 +112,12 @@ router.post("/forgot_password", async (req, res) => {
                     console.error(error.response.body);
                 }
             }
-        })();
+        })(); */
 
-        return res.send();
+        return res.send("ok");
     } catch (err) {
         console.log(err);
-        res.status(401).send({ error: "Error on forgot password, try again!" });
+        res.status(401).send(err);
     }
 });
 
