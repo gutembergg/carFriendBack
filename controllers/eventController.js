@@ -1,6 +1,5 @@
 const express = require("express");
 
-const mailer = require("../modules/mailer");
 const Event = require("../models/event");
 const Car = require("../models/car");
 const Passenger = require("../models/passenger");
@@ -29,7 +28,6 @@ const eventMiddleware = async (req, res, next) => {
 router.post("/", async (req, res) => {
     try {
         const event = await Event.create(req.body);
-        let pathname = req.header("origin");
 
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -343,19 +341,33 @@ router.put("/:id/edit", async (req, res) => {
             res.send({ success: true, event: data });
         });
 
-        let pathname = req.header("origin");
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-        await mailer.sendMail({
-            from: '"Caroster" <carosteroctree2020@gmail.com>',
+        const msg = {
             to: `${event.email}`,
+            from: "gmascarenhas3001@gmail.com",
             subject: `Votre lien Caroster pour votre événement :${event.title} `,
+            text: "Votre lien",
             html: `
-                   <p>Bonjour,</p>
-                   <p>Voici le lien à partager avec les personnes venant à votre événement :</p>
-                   <p>"<strong>${event.title}</strong>"</p>
-                   <p>Lien de votre événement : "${pathname}/event/${event._id}"</p>
-                 `,
-        });
+                <p>Bonjour,</p>
+                <p>Voici le lien à partager avec les personnes venant à votre événement :</p>
+                <p>"<strong>${event.title}</strong>"</p>
+                <p>Lien de votre événement : "https://car-friend-guto.herokuapp.com/event/${event._id}"</p>
+              `,
+        };
+
+        (async () => {
+            try {
+                await sgMail.send(msg);
+            } catch (error) {
+                console.error(error);
+
+                if (error.response) {
+                    console.error(error.response.body);
+                }
+            }
+        })();
+        return res.send(event);
     } catch (error) {
         return res.status(400).send("error: delete event");
     }
