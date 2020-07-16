@@ -42,7 +42,7 @@ router.post("/", async (req, res) => {
                 <p>Bonjour,</p>
                 <p>Voici le lien à partager avec les personnes venant à votre événement :</p>
                 <p>"<strong>${event.title}</strong>"</p>
-                <p>Lien de votre événement : "${pathname}/event/${event._id}"</p>
+                <p>Lien de votre événement : "https://car-friend-guto.herokuapp.com/event/${event._id}"</p>
               `,
         };
 
