@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const authConfig = require("../config/authConfig");
 const mailer = require("../modules/mailer");
+const sgMail = require("@sendgrid/mail");
 
 const router = express.Router();
 
