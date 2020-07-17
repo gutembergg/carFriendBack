@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
                 }
             }
         })();
-        return res.send(event);
+        return res.send();
     } catch (error) {
         return res.status(400).send({ error: "Error send mail" });
     }
